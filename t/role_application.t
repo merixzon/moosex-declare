@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 5;
+use Test::More tests => 7;
 
 use MooseX::Declare;
 
@@ -23,6 +23,21 @@ my $foobar2 = FooBar2->new;
 
 is $foobar2->foo, 1;
 is $foobar2->bar, 1;
+
+role RootRole {
+    method root {
+        return "root";
+    };
+}
+
+role ChildRole {
+    with 'RootRole';
+};
+
+class RoleInherit with ChildRole {};
+
+can_ok('RoleInherit', 'root');
+is(RoleInherit->new->root, "root", "Methods defined in roles included in another role works");
 
 TODO: {
     local $TODO = 'we need better error messages on parse fail';

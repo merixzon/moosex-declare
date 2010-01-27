@@ -1,6 +1,14 @@
 use MooseX::Declare;
 
+role RootCounter {
+    method root {
+        return "root";
+    };
+}
+
 role Counter (Str :$name, Int :$charges = 1) {
+    with 'RootCounter';
+
     has $name => (is => 'rw', isa => 'Int', default => $charges);
 
     method "increment_${name}" {

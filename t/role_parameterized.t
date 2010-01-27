@@ -19,4 +19,7 @@ can_ok('MyGame::Scroll', 'increment_spelled');
 can_ok('MyGame::Scroll', 'reset_spelled');
 is(MyGame::Scroll->new->spelled, 1, 'Provided default for spelled');
 
+can_ok('MyGame::Weapon', 'root');
+is(MyGame::Weapon->new->root, "root", "Methods defined in roles included in parameterized roles works");
+
 done_testing;
